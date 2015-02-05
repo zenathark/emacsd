@@ -1,0 +1,2 @@
+# emacsd
+Personal emacs configuration
