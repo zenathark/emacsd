@@ -1,5 +1,8 @@
 ;;; Initialize package manager
-(require 'cask "~/.cask/cask.el")
+(if (eq system-type 'darwin)
+    (require 'cask "/usr/local/Cellar/cask/0.7.2/cask.el")
+  (require 'cask "~/.cask/cask.el"))
+
 (cask-initialize)
 (require 'pallet)
 (pallet-mode t)
@@ -27,6 +30,8 @@
       (setq deactivate-mark  t)
     (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
     (abort-recursive-edit)))
+
+(add-hook 'prog-mode-hook 'helm-gtags-mode)
 
 
 ;;; Visual Tweaks
@@ -65,7 +70,7 @@
 
 (require 'moe-theme)
 (moe-dark)
-(moe-theme-set-color 'cyan)
+(moe-theme-set-color 'blue)
 
 
 (add-to-list 'default-frame-alist '(font . "Source Code Pro-12"))
@@ -85,6 +90,7 @@
 
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
+(delete 'company-eclim company-backends)
 
 ;; (require 'ac-helm
 ;;   :ensure
@@ -99,6 +105,22 @@
 (require 'helm-projectile)
 (helm-projectile-on)
 
+(defun gtags-root-dir ()
+  "Return GTAGS root directory or nil if doesn't exists."
+  (with-temp-buffer
+    (if (zerop (call-process "global" nil t nil "-pr"))
+	(buffer-substring (point-min) (1- (point-max)))
+      nil)))
+
+(defun gtags-update ()
+  "Make GTAGS incremental update"
+  (call-process "global" nil nil nil "-u"))
+
+(defun gtags-update-hook ()
+  (when (gtags-root-dir)
+    (gtags-update)))
+
+(add-hook 'after-save-hook #'gtags-update-hook)
 ;;; Web Development
 
 (require 'web-mode)
@@ -148,8 +170,7 @@
 (require 'mic-paren)
 (paren-activate)
 
-(require 'smartparens)
-(smartparens-mode)
+(require 'smartparens-config)
 
 (require 'eval-sexp-fu)
 
@@ -228,3 +249,6 @@
 (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
 (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
 
+;; Projectile
+
+(key-chord-define-global ",r" 'helm-projectile)
