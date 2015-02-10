@@ -6,3 +6,5 @@ eshell
 .\#*
 .cask
 projectile-bookmarks.eld
+projectile.cache
+*.swp

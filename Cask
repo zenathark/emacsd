@@ -17,6 +17,7 @@
 (depends-on "evil-numbers")
 (depends-on "evil-surround")
 (depends-on "flycheck")
+(depends-on "ggtags")
 (depends-on "gradle-mode")
 (depends-on "groovy-mode")
 (depends-on "gtags")

@@ -86,11 +86,29 @@
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 (require 'yasnippet)
+(setq yas-snippet-dirs '("~/.emacs.d/yasnippets"))
 (yas-global-mode t)
 
+;; (require 'auto-complete-config)
+;; (ac-config-default)
+;; (push 'ac-source-gtags ac-sources)
+;; (push 'ac-source-yasnippet ac-sources)
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 (delete 'company-eclim company-backends)
+(push '(company-semantic :with company-yasnippet) company-backends)
+(defun company-yasnippet-or-completion ()
+  (interactive)
+  (if (yas/expansion-at-point)
+  (progn (company-abort)
+         (yas-expand))
+  (company-complete-common)))
+
+(defun yas/expansion-at-point ()
+  (first (yas--current-key)))
+
+(define-key company-active-map (kbd "TAB") 'company-yasnippet-or-completion)
+(define-key company-active-map (kbd "<tab>") 'company-yasnippet-or-completion)
 
 ;; (require 'ac-helm
 ;;   :ensure
@@ -105,22 +123,22 @@
 (require 'helm-projectile)
 (helm-projectile-on)
 
-(defun gtags-root-dir ()
-  "Return GTAGS root directory or nil if doesn't exists."
-  (with-temp-buffer
-    (if (zerop (call-process "global" nil t nil "-pr"))
-	(buffer-substring (point-min) (1- (point-max)))
-      nil)))
+;; (defun gtags-root-dir ()
+;;   "Return GTAGS root directory or nil if doesn't exists."
+;;   (with-temp-buffer
+;;     (if (zerop (call-process "global" nil t nil "-pr"))
+;; 	(buffer-substring (point-min) (1- (point-max)))
+;;       nil)))
 
-(defun gtags-update ()
-  "Make GTAGS incremental update"
-  (call-process "global" nil nil nil "-u"))
+;; (defun gtags-update ()
+;;   "Make GTAGS incremental update"
+;;   (call-process "global" nil nil nil "-u"))
 
-(defun gtags-update-hook ()
-  (when (gtags-root-dir)
-    (gtags-update)))
+;; (defun gtags-update-hook ()
+;;   (when (gtags-root-dir)
+;;     (gtags-update)))
 
-(add-hook 'after-save-hook #'gtags-update-hook)
+;; (add-hook 'after-save-hook #'gtags-update-hook)
 ;;; Web Development
 
 (require 'web-mode)
@@ -174,6 +192,13 @@
 
 (require 'eval-sexp-fu)
 
+;;; Java
+
+(add-hook 'java-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'java-mode-hook 'ggtags-mode)
+;; 	  '(when (derived-mode-p 'java-mode)
+;; 	    (ggtags-mode 1)))
+
 ;;; Evil Mode
 
 (require 'evil-leader)
@@ -226,7 +251,7 @@
 (evil-leader/set-key "ci" 'evilnc-comment-or-uncomment-lines)
 (evil-leader/set-key "e" 'evil-ace-jump-word-mode)
 (evil-leader/set-key "l" 'evil-ace-jump-line-mode)
-(evil-leader/set-key "h" 'evil-ace-jump-char-mode)
+(evil-leader/set-key "." 'evil-ace-jump-char-mode)
 (key-chord-define evil-insert-state-map "kj" 'evil-normal-state)
 (key-chord-define evil-insert-state-map "th" 'evil-normal-state)
 (key-chord-define evil-visual-state-map "th" 'evil-normal-state)
