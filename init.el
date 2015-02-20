@@ -2,10 +2,12 @@
 (if (eq system-type 'darwin)
     (require 'cask "/usr/local/Cellar/cask/0.7.2/cask.el")
   (require 'cask "~/.cask/cask.el"))
+(add-to-list 'load-path "~/.emacs.d/modules/")
 
 (cask-initialize)
 (require 'pallet)
 (pallet-mode t)
+
 
 (if (eq system-type 'darwin)
     (progn
@@ -177,8 +179,8 @@
 
 (require 'clojure-mode)
 
-(require 'paredit)
-(add-hook 'scheme-mode-hook #'enable-paredit-mode)
+;; (require 'paredit)
+;; (add-hook 'scheme-mode-hook #'enable-paredit-mode)
 
 (require 'rainbow-delimiters)
 (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
@@ -238,42 +240,46 @@
 
 ;;; Keyboard bindings
 
-; Ace Window
-(global-set-key (kbd "M-p") 'ace-window)
-(key-chord-define-global ",w" 'ace-window)
-(key-chord-define-global ",s" 'ace-swap-window)
-(key-chord-define-global ",d" 'ace-delete-window)
+(require 'zen-keybindings "~/.emacs.d/modules/zen-keybindings")
+
+(add-to-list 'z-global-keys "C-w"
+
+;; ; Ace Window
+;; (global-set-key (kbd "M-p") 'ace-window)
+;; (key-chord-define-global ",w" 'ace-window)
+;; (key-chord-define-global ",s" 'ace-swap-window)
+;; (key-chord-define-global ",d" 'ace-delete-window)
 
 
-; evil
-(define-key evil-normal-state-map (kbd "SPC") 'evil-execute-in-emacs-state)
-(evil-leader/set-leader ",")
-(evil-leader/set-key "ci" 'evilnc-comment-or-uncomment-lines)
-(evil-leader/set-key "e" 'evil-ace-jump-word-mode)
-(evil-leader/set-key "l" 'evil-ace-jump-line-mode)
-(evil-leader/set-key "." 'evil-ace-jump-char-mode)
-(key-chord-define evil-insert-state-map "kj" 'evil-normal-state)
-(key-chord-define evil-insert-state-map "th" 'evil-normal-state)
-(key-chord-define evil-visual-state-map "th" 'evil-normal-state)
-(key-chord-define evil-visual-state-map "ht" 'evil-normal-state)
-(key-chord-define evil-visual-state-map "ht" 'evil-normal-state)
-(define-key evil-normal-state-map [escape] 'keyboard-quit)
-(define-key evil-visual-state-map [escape] 'keyboard-quit)
-(global-set-key [escape] 'evil-exit-emacs-state)
+;; ; evil
+;; (define-key evil-normal-state-map (kbd "SPC") 'evil-execute-in-emacs-state)
+;; (evil-leader/set-leader ",")
+;; (evil-leader/set-key "ci" 'evilnc-comment-or-uncomment-lines)
+;; (evil-leader/set-key "e" 'evil-ace-jump-word-mode)
+;; (evil-leader/set-key "l" 'evil-ace-jump-line-mode)
+;; (evil-leader/set-key "." 'evil-ace-jump-char-mode)
+;; (key-chord-define evil-insert-state-map "kj" 'evil-normal-state)
+;; (key-chord-define evil-insert-state-map "th" 'evil-normal-state)
+;; (key-chord-define evil-visual-state-map "th" 'evil-normal-state)
+;; (key-chord-define evil-visual-state-map "ht" 'evil-normal-state)
+;; (key-chord-define evil-visual-state-map "ht" 'evil-normal-state)
+;; (define-key evil-normal-state-map [escape] 'keyboard-quit)
+;; (define-key evil-visual-state-map [escape] 'keyboard-quit)
+;; (global-set-key [escape] 'evil-exit-emacs-state)
 
-;; HELM 
-(key-chord-define-global ",x" 'helm-M-x)
-(key-chord-define-global ",f" 'helm-find-files)
-(key-chord-define-global ",b" 'helm-buffers-list)
-(define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
-(define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
-(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
-(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
-(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+;; ;; HELM 
+;; (key-chord-define-global ",x" 'helm-M-x)
+;; (key-chord-define-global ",f" 'helm-find-files)
+;; (key-chord-define-global ",b" 'helm-buffers-list)
+;; (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
+;; (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
+;; (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
+;; (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
+;; (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+;; (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+;; (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+;; (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
 
-;; Projectile
+;; ;; Projectile
 
-(key-chord-define-global ",r" 'helm-projectile)
+;; (key-chord-define-global ",r" 'helm-projectile)
