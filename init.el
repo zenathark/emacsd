@@ -3,6 +3,9 @@
     (require 'cask "/usr/local/Cellar/cask/0.7.2/cask.el")
   (require 'cask "~/.cask/cask.el"))
 (add-to-list 'load-path "~/.emacs.d/modules/")
+(add-to-list 'load-path "~/.emacs.d/themes/")
+
+(package-initialize)
 
 (cask-initialize)
 (require 'pallet)
@@ -14,30 +17,6 @@
       (require 'env-var-import)
       (env-var-import)))
 
-;;; CUA Mode
-(cua-mode t)
-
-;;; Remove welcome screen
-(setq inhibit-startup-message t)
-
-
-
-(require 'helm-config)
-(helm-mode t)
-;; esc quits
-(defun minibuffer-keyboard-quit ()
-  "Abort recursive edit. In Delete Selection mode, if the mark is active, just deactivate it;then it takes a second \\[keyboard-quit] to abort the minibuffer."
-  (interactive)
-  (if (and delete-selection-mode transient-mark-mode mark-active)
-      (setq deactivate-mark  t)
-    (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
-    (abort-recursive-edit)))
-
-(add-hook 'prog-mode-hook 'helm-gtags-mode)
-
-
-;;; Visual Tweaks
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -47,202 +26,102 @@
    (quote
     ("756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" default))))
 
-(require 'smart-mode-line)
-(sml/setup)
+(require 'zen-moe)
+(require 'zen-misc)
+(require 'zen-helm)
+(require 'zen-acejump)
+(require 'zen-elisp)
 
-(column-number-mode 1)
-
-(scroll-bar-mode 0)
-
-(tool-bar-mode 0)
-
-(menu-bar-mode 0)
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(fringe ((t (:background "gray19")))))
-
-(add-hook 'emacs-lisp-mode-hook
-	  (lambda ()
-	    (linum-mode 1)))
-(setq linum-format " %4d ")
-
-(require 'moe-theme)
-(moe-dark)
-(moe-theme-set-color 'blue)
+;(add-hook 'emacs-lisp-mode-hook
+;	  (lambda ()
+;	    (linum-mode 1)))
+;(setq linum-format " %4d ")
 
 
-(add-to-list 'default-frame-alist '(font . "Source Code Pro-12"))
-(set-frame-font "Source Code Pro-12" nil t)
-
-(require 'magit)
 
 ;;; Development Customs
 
-(require 'markdown-mode)
-(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+;(require 'markdown-mode)
+;(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+;(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+;(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
-(require 'yasnippet)
-(setq yas-snippet-dirs '("~/.emacs.d/yasnippets"))
-(yas-global-mode t)
+;(require 'yasnippet)
+;(setq yas-snippet-dirs '("~/.emacs.d/yasnippets"))
+;(yas-global-mode t)
 
 ;; (require 'auto-complete-config)
 ;; (ac-config-default)
 ;; (push 'ac-source-gtags ac-sources)
 ;; (push 'ac-source-yasnippet ac-sources)
-(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
-(delete 'company-eclim company-backends)
-(push '(company-semantic :with company-yasnippet) company-backends)
-(defun company-yasnippet-or-completion ()
-  (interactive)
-  (if (yas/expansion-at-point)
-  (progn (company-abort)
-         (yas-expand))
-  (company-complete-common)))
 
-(defun yas/expansion-at-point ()
-  (first (yas--current-key)))
+;(require 'flycheck)
+;(add-hook 'prog-mode-hook 'flycheck-mode)
 
-(define-key company-active-map (kbd "TAB") 'company-yasnippet-or-completion)
-(define-key company-active-map (kbd "<tab>") 'company-yasnippet-or-completion)
-
-;; (require 'ac-helm
-;;   :ensure
-;;   )
-
-(require 'flycheck)
-(add-hook 'prog-mode-hook 'flycheck-mode)
-
-(require 'projectile)
-(projectile-global-mode)
-
-(require 'helm-projectile)
-(helm-projectile-on)
-
-;; (defun gtags-root-dir ()
-;;   "Return GTAGS root directory or nil if doesn't exists."
-;;   (with-temp-buffer
-;;     (if (zerop (call-process "global" nil t nil "-pr"))
-;; 	(buffer-substring (point-min) (1- (point-max)))
-;;       nil)))
-
-;; (defun gtags-update ()
-;;   "Make GTAGS incremental update"
-;;   (call-process "global" nil nil nil "-u"))
-
-;; (defun gtags-update-hook ()
-;;   (when (gtags-root-dir)
-;;     (gtags-update)))
-
-;; (add-hook 'after-save-hook #'gtags-update-hook)
 ;;; Web Development
 
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
-(add-hook 'web-mode-hook
-	  (lambda ()
-	    (progn
-	      (setq web-mode-markup-indent-offset 2))))
+;(require 'web-mode)
+;(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+;(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+;(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+;(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+;(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+;(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+;(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+;(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+;(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+;(add-hook 'web-mode-hook
+;	  (lambda ()
+;	    (progn
+;	      (setq web-mode-markup-indent-offset 2))))
 
-(require 'know-your-http-well)
+;(require 'know-your-http-well)
 
-(require 'restclient)
+;(require 'restclient)
 
-(require 'company-restclient)
-(push 'company-restclient company-backends)
+;(require 'company-restclient)
+;(push 'company-restclient company-backends)
 
-(require 'less-css-mode)
-(add-to-list 'auto-mode-alist '("\\.less\\'" . less-css-mode))
+;(require 'less-css-mode)
+;(add-to-list 'auto-mode-alist '("\\.less\\'" . less-css-mode))
 
-(require 'js2-mode)
-(push '("\\.js\\'" . js2-mode) auto-mode-alist)
-(push '("node" . js2-mode) interpreter-mode-alist)
+;;(require 'js2-mode)
+;;(push '("\\.js\\'" . js2-mode) auto-mode-alist)
+;;(push '("node" . js2-mode) interpreter-mode-alist)
 
-(require 'impatient-mode)
-(add-hook 'web-mode-hook 'impatient-mode)
+;(require 'impatient-mode)
+;(add-hook 'web-mode-hook 'impatient-mode)
 
-(require 'cider)
+;(require 'cider)
 
-(require 'clojure-mode)
+;(require 'clojure-mode)
 
 ;; (require 'paredit)
 ;; (add-hook 'scheme-mode-hook #'enable-paredit-mode)
 
-(require 'rainbow-delimiters)
-(add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
-(add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
-(add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
+;(require 'rainbow-delimiters)
+;(add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
+;(add-hook 'emacs-lisp-mode-hook 'rainbow-delimiters-mode)
+;(add-hook 'lisp-mode-hook 'rainbow-delimiters-mode)
 
-(require 'mic-paren)
-(paren-activate)
+;(require 'mic-paren)
+;(paren-activate)
 
-(require 'smartparens-config)
+;(require 'smartparens-config)
 
-(require 'eval-sexp-fu)
+;(require 'eval-sexp-fu)
 
 ;;; Java
 
-(add-hook 'java-mode-hook 'rainbow-delimiters-mode)
-(add-hook 'java-mode-hook 'ggtags-mode)
+;;(add-hook 'java-mode-hook 'rainbow-delimiters-mode)
+;;(add-hook 'java-mode-hook 'ggtags-mode)
 ;; 	  '(when (derived-mode-p 'java-mode)
 ;; 	    (ggtags-mode 1)))
 
 ;;; Evil Mode
 
-(require 'evil-leader)
-(global-evil-leader-mode)
-
-(require 'evil)
-(evil-mode t)
-
-(require 'evil-surround)
-(global-evil-surround-mode 1)
-
-(require 'evil-numbers)
-(global-set-key (kbd "C-a") 'evil-numbers/dec-at-pt)
-(global-set-key (kbd "C-o") 'evil-numbers/dec-at-pt)
-
-(require 'key-chord)
-(key-chord-mode 1)
-
-(require 'ace-jump-mode)
-(setq aw-keys '(?a ?o ?e ?u ?i ?h ?t ?n ?s))
-
-;;;Fix text object
-;;;bind evil-args text objects
-(require 'evil-args)
-(define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
-(define-key evil-outer-text-objects-map "a" 'evil-outer-arg)
-(define-key evil-normal-state-map "L" 'evil-forward-arg)
-(define-key evil-normal-state-map "H" 'evil-backward-arg)
-(define-key evil-motion-state-map "L" 'evil-forward-arg)
-(define-key evil-motion-state-map "H" 'evil-backward-arg)
-(define-key evil-normal-state-map "K" 'evil-jump-out-args)
-
-(require 'evil-nerd-commenter)
-(evilnc-default-hotkeys)
-
-(require 'ace-window)
 
 ;;; Keyboard bindings
-
-(require 'zen-keybindings "~/.emacs.d/modules/zen-keybindings")
-
-(add-to-list 'z-global-keys "C-w"
 
 ;; ; Ace Window
 ;; (global-set-key (kbd "M-p") 'ace-window)

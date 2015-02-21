@@ -23,7 +23,7 @@
 (defvar z-emacs-keys)
 
 (setq z-leader ",")
-(setq z-emacs-leader)
+(setq z-emacs-leader "C-c")
 (setq z-global-keys (list))
 (setq z-evil-normal-keys (list))
 (setq z-evil-visual-keys (list))
@@ -31,9 +31,11 @@
 
 (defun emacs-to-evil (keys)
   (mapconcat (lambda (key)
+	       (if (> (length key) 1)
 		 (if (string-equal "M-" (substring key 0 2))
 		     (concat "g " (substring key 2))
-		   (substring key 2)))
+		   (substring key 2))
+		 key))
 	     (split-string keys)
 	     " "))
 
