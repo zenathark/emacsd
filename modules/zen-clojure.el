@@ -5,9 +5,8 @@
 (require 'cider)
 
 (mapc (lambda (extras)
-	(add-hook 'clojure-mode extras))
+	(add-hook 'clojure-mode-hook extras))
 	    '(rainbow-delimiters-mode
-	      evil-local-mode
-	      turn-on-eval-sexp-fu-flash-mode))
+	      evil-local-mode))
 					
 (provide 'zen-clojure)
