@@ -16,6 +16,7 @@
 (depends-on "evil-nerd-commenter")
 (depends-on "evil-numbers")
 (depends-on "evil-surround")
+(depends-on "expand-region")
 (depends-on "flycheck")
 (depends-on "ggtags")
 (depends-on "gradle-mode")
