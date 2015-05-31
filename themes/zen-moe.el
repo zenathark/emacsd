@@ -19,14 +19,14 @@
 
 (tool-bar-mode 0)
 
-(menu-bar-mode 0)
+(menu-bar-mode 1)
 
 (require 'moe-theme)
 (moe-dark)
-(moe-theme-set-color 'blue)
+(moe-theme-set-color 'w/b)
 
 
-(add-to-list 'default-frame-alist '(font . "Source Code Pro-12"))
-(set-frame-font "Source Code Pro-12" nil t)
+(add-to-list 'default-frame-alist '(font . "Source Code Pro-11"))
+(set-frame-font "Source Code Pro-11" nil t)
 
 (provide 'zen-moe)

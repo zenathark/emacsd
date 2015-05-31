@@ -17,6 +17,8 @@
       (require 'env-var-import)
       (env-var-import)))
 
+(setq magit-last-seen-setup-instructions "1.4.0")
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -24,7 +26,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" default))))
+    ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default))))
 
 (require 'zen-moe)
 (require 'zen-misc)
@@ -163,3 +165,9 @@
 ;; ;; Projectile
 
 ;; (key-chord-define-global ",r" 'helm-projectile)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(fringe ((t (:background "gray19")))))
