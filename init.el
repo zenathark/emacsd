@@ -34,6 +34,7 @@
 (require 'zen-acejump)
 (require 'zen-elisp)
 (require 'zen-clojure)
+(require 'zen-python)
 
 ;(add-hook 'emacs-lisp-mode-hook
 ;	  (lambda ()
