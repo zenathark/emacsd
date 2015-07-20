@@ -17,6 +17,7 @@
 (global-evil-leader-mode)
 
 (require 'evil)
+(evil-mode 1)
 
 (require 'evil-surround)
 (global-evil-surround-mode 1)
@@ -65,7 +66,6 @@
 (add-to-list 'z-global-keys '("C-c p" evilnc-comment-or-uncomment-paragraphs))
 (add-to-list 'z-global-keys '("C-c r" comment-or-uncomment-region))
 (add-to-list 'z-global-keys '("C-c v" evilnc-toggle-invert-comment-line-by-line))
-
 
 (provide 'zen-evil)
 

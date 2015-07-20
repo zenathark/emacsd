@@ -21,9 +21,9 @@
 
 (menu-bar-mode 1)
 
-(require 'moe-theme)
-(moe-dark)
-(moe-theme-set-color 'w/b)
+;; (require 'moe-theme)
+;; (moe-dark)
+;; (moe-theme-set-color 'w/b)
 
 
 (add-to-list 'default-frame-alist '(font . "Source Code Pro-11"))
