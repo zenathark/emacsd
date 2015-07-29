@@ -36,6 +36,7 @@
 (require 'zen-elisp)
 (require 'zen-misc)
 (require 'zen-web)
+(require 'zen-ruby)
 
 ;(if (eq system-type 'darwin)
 ;    (progn
