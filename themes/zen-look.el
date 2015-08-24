@@ -1,4 +1,5 @@
 (setq sml/theme 'respectful)
+(require 'zen-darktooth)
 (sml/setup)
 (setq require-final-newline t)
 
@@ -27,12 +28,10 @@
 	(set-fringe-mode '(4 . 0))
 	(set-face-font 'default "DejaVu Sans Mono-12")
         (set-face-font 'variable-pitch "DejaVu Sans-12")
-        (set-face-font 'fixed-pitch "DejaVu Sans Mono-12")
-	(setq linum-format " %4d  ")
-	(require 'zen-darktooth))
+        (set-face-font 'fixed-pitch "DejaVu Sans Mono-12"))
     ;; Menu bar always off in text mode
     (menu-bar-mode 1)))
-
+(setq linum-format " %4d  ")
 (add-hook 'after-init-hook 'zen-look-startup-after-init)
 
 (provide 'zen-look)
