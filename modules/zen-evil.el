@@ -53,20 +53,6 @@
 (define-key evil-visual-state-map [escape] 'keyboard-quit)
 (global-set-key [escape] 'evil-exit-emacs-state)
 
-
-;; Keybindings
-
-(global-set-key (kbd "M-;") 'evilnc-comment-or-uncomment-lines)
-(add-to-list 'z-emacs-keys '("l" evilnc-quick-comment-or-uncomment-to-the-line))
-(add-to-list 'z-emacs-keys '("c l" evilnc-copy-and-comment-lines))
-(add-to-list 'z-emacs-keys '("c p" evilnc-comment-or-uncomment-paragraphs))
-(add-to-list 'z-global-keys '("C-c i" evilnc-comment-or-uncomment-lines))
-(add-to-list 'z-global-keys '("C-c l" evilnc-quick-comment-or-uncomment-to-the-line))
-(add-to-list 'z-global-keys '("C-c c" evilnc-copy-and-comment-lines))
-(add-to-list 'z-global-keys '("C-c p" evilnc-comment-or-uncomment-paragraphs))
-(add-to-list 'z-global-keys '("C-c r" comment-or-uncomment-region))
-(add-to-list 'z-global-keys '("C-c v" evilnc-toggle-invert-comment-line-by-line))
-
 (provide 'zen-evil)
 
 ;;; zen-evil.el ends here

@@ -7,7 +7,8 @@
 
 (mapc (lambda (extras)
 	(add-hook 'racket-mode-hook extras))
-      '(rainbow-delimiters-mode
-	evil-local-mode))
+	'(rainbow-delimiters-mode
+	  evil-local-mode
+	  zen-set-programming-env))
 
 (provide 'zen-racket)
