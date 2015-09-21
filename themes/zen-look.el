@@ -15,9 +15,10 @@
 (setq scroll-step 1)
 (setq scroll-margin 3)
 
-(defun zen-look-startup-after-init ()
+(defun zen-look-startup-after-init (frame)
   "Load defaults for the overall look -- to be called after loading the init file so as to pick up custom settings."
-  (if window-system
+  (progn 
+  (select-frame frame)
     (progn
       (setq sml/theme 'respectful)
       (require 'zen-darktooth)
@@ -30,14 +31,14 @@
       (set-face-font 'variable-pitch "DejaVu Sans-12")
       (setq linum-format " %4d  ")
       (set-face-font 'fixed-pitch "DejaVu Sans Mono-12"))
-    (progn
-      (setq sml/theme 'respectful)
-      (require 'zen-lecture)
-      (sml/setup)
-      (setq linum-format " %4d  ")
-      (menu-bar-mode 1)
-      )))
+    ;; (progn
+    ;;   (setq sml/theme 'respectful)
+    ;;   (require 'zen-lecture)
+    ;;   (sml/setup)
+    ;;   (setq linum-format " %4d  ")
+    ;;   (menu-bar-mode 1)
+      ))
 
-(add-hook 'after-init-hook 'zen-look-startup-after-init)
+(add-hook 'after-make-frame-functions 'zen-look-startup-after-init)
 
 (provide 'zen-look)

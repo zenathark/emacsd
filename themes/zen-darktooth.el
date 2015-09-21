@@ -14,10 +14,10 @@
 		    :background "#252525")
 
 (set-face-attribute 'mode-line nil
-		    :font "Lucida Grande-11")
+		    :font "Source Code Pro-11")
 (set-face-attribute 'mode-line-inactive nil
-		    :font "Lucida Grande-11")
+		    :font "Source Code Pro-11")
 (set-face-attribute 'minibuffer-prompt nil
-		    :font "Lucida Grande-11")
+		    :font "Source Code Pro-11")
 
 (provide 'zen-darktooth)

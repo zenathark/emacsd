@@ -1,0 +1,5 @@
+#contributor: Zenathark <jcgalanh@gmail.com>
+#name: display
+#key: disp
+# --
+(display $0)

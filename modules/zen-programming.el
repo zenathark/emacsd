@@ -1,7 +1,7 @@
 (require 'magit)
 
 (require 'yasnippet)
-(setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+(setq yas-snippet-dirs '("~/.emacs.d/yasnippets"))
 (yas-global-mode t)
 
 (require 'smartparens-config)

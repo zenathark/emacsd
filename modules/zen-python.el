@@ -5,11 +5,8 @@
 
 (mapc (lambda (extras)
 	(add-hook 'python-mode-hook extras))
-	    '(flycheck-mode
-	      evil-local-mode
+	    '(zen-set-programming-env
 	      anaconda-mode
 	      eldoc-mode))
-
-
 					
 (provide 'zen-python)
